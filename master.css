@@ -1,0 +1,82 @@
+body {
+    background: linear-gradient(to left, rgba(180, 180, 180, 1) 10%, rgba(255, 255, 255, 1));
+}
+
+/*table {
+  align: top;
+  width: 50%;
+  height: 700px;
+  border: 1px solid blue
+}*/
+
+.menubar ul li {
+  padding-left: 10px;
+}
+
+.menubar ul li ul{
+  font-size: 0.85em;
+  padding-left: 15px;
+}
+
+.menubar h2 {
+  margin-top: 12px;
+  margin-bottom: 3px;
+  font-size: 18;
+}
+
+div.layout {
+  display: grid;
+  grid-template-columns: minmax(170px, 300px) 73% ;
+}
+
+div.menubar {
+  margin-left: 10px;
+  display: block;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.darkenMenu {
+padding-top: 5;
+padding-bottom: 5;
+margin-bottom: 4;
+background: linear-gradient(to right, rgba(210, 210, 210, 1) 10%, rgba(255, 255, 255, 1));
+/*background-color:rgba(255,255,255,0.5);*/
+}
+
+.menubar ul {
+  font-size: 20;
+  list-style-type: none;
+  padding-left: 2px;
+}
+
+div.content {
+  padding-left: 80px;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.leftAside {
+    background: rgba(100, 100, 100, 0.3);
+    width: 40%
+}
+
+td {
+  padding-top: 10px;
+  height: auto;
+}
+
+tr {
+  vertical-align: top;
+}
+
+span {
+  color: black;
+  cursor: default;
+  transition-property: font-weight, cursor
+}
+
+li > span:hover {
+  font-weight: 900;
+  cursor: hand;
+}
