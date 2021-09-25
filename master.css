@@ -30,8 +30,9 @@ div.layout {
 }
 
 div.menubar {
-  margin-left: 10px;
   display: block;
+  margin-left: 10px;
+  /*display: block;*/
   grid-column: 1;
   grid-row: 1;
 }

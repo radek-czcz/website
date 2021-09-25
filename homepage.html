@@ -6,17 +6,40 @@
     <link rel="stylesheet" href="master.css">
   </head>
   <body>
-    <table>
-      <tr>
-        <td class="leftAside">
-          <ul>
-            <li><span class="liEl">Tolerancja Prostopadłości<span></li>
-            <li><span class="liEl">Tolerancja równoległości</span></li>
-            <li><span class="liEl">Tolerancja pozycji</span></li>
-          </ul>
-        </td>
-        <td></td>
-      </tr>
-    </table>
+    <div class="layout">
+      <div class="menubar">
+
+        <ul>
+          <li class="darkenMenu">Reguły tolerowania</li>
+              <li class="darkenMenu">
+                Tolerancje Geometryczne
+                <ul>
+                  <h2>Tolerancje kształtu</h2>
+                  <li><span class="liEl">Tolerancja płaskości</span></li>
+                  <li><span class="liEl">Tolerancja prostoliniowości</span></li>
+                </ul>
+
+                <ul>
+                  <h2>Tolerancje położenia</h2>
+                  <li><span class="liEl">Tolerancja prostopadłości<span></li>
+                  <li><span class="liEl">Tolerancja równoległości</span></li>
+                  <li><span class="liEl">Tolerancja pozycji</span></li>
+                </ul>
+
+                <ul>
+                  <h2>Tolerancje bicia</h2>
+                    <li><span class="liEl">Tolerancja bicia osiowego<span></li>
+                    <li><span class="liEl">Tolerancja bicia</span></li>
+                </ul>
+            </li>
+        </ul>
+
+      </div>
+      <div class="content">
+        radek c ss
+        <input type="button" name="togBut" value="Toggle"  onclick="toggleFunc()">
+      </div>
+    </div>
   </body>
+  <script src="main.js"></script>
 </html>
