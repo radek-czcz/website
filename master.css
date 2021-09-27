@@ -2,20 +2,26 @@ body {
     background: linear-gradient(to left, rgba(180, 180, 180, 1) 10%, rgba(255, 255, 255, 1));
 }
 
-/*table {
-  align: top;
-  width: 50%;
-  height: 700px;
-  border: 1px solid blue
-}*/
+.menubar ul {
+  font-size: 20;
+  list-style-type: none;
+  padding-left: 2px;
+  /*overflow-x: hidden;*/
+}
 
 .menubar ul li {
   padding-left: 10px;
+  /*overflow-x: hidden;*/
 }
 
 .menubar ul li ul{
   font-size: 0.85em;
   padding-left: 15px;
+  /*overflow-x: hidden;*/
+}
+
+.menubar ul li ul li{
+  /*overflow-x: hidden;*/
 }
 
 .menubar h2 {
@@ -35,20 +41,8 @@ div.menubar {
   /*display: block;*/
   grid-column: 1;
   grid-row: 1;
-}
-
-.darkenMenu {
-padding-top: 5;
-padding-bottom: 5;
-margin-bottom: 4;
-background: linear-gradient(to right, rgba(210, 210, 210, 1) 10%, rgba(255, 255, 255, 1));
-/*background-color:rgba(255,255,255,0.5);*/
-}
-
-.menubar ul {
-  font-size: 20;
-  list-style-type: none;
-  padding-left: 2px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 div.content {
@@ -57,18 +51,12 @@ div.content {
   grid-row: 1;
 }
 
-.leftAside {
-    background: rgba(100, 100, 100, 0.3);
-    width: 40%
-}
-
-td {
-  padding-top: 10px;
-  height: auto;
-}
-
-tr {
-  vertical-align: top;
+.darkenMenu {
+padding-top: 5;
+padding-bottom: 5;
+margin-bottom: 4;
+background: linear-gradient(to right, rgba(210, 210, 210, 1) 10%, rgba(255, 255, 255, 1));
+/*background-color:rgba(255,255,255,0.5);*/
 }
 
 span {
