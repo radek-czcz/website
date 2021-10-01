@@ -2,6 +2,25 @@ body {
     background: linear-gradient(to left, rgba(180, 180, 180, 1) 10%, rgba(255, 255, 255, 1));
 }
 
+.flexDiv {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid;
+}
+
+.flInDiv {
+  border: 1px solid;
+  width: 1000px;
+  flex: 0 1 333px;
+}
+
+.flInDiv2 {
+  border: 1px solid;
+  width: 1000px;
+  flex: 1 0.5 333px;
+}
+
 .menubar ul {
   font-size: 20;
   list-style-type: none;

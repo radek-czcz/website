@@ -1,5 +1,7 @@
 
 let widthChanger;
+var slider = document.getElementById("slid");
+
 function toggleFunc(){
   let widthChanger = document.querySelector("div.layout");
   let menubar = document.getElementsByClassName('menubar')[0];
@@ -43,4 +45,9 @@ function menubarNarrower(iterStep) {
 
 function doSetTimeout(int1, int2) {
   setTimeout(menubarNarrower, int1, int2);
+}
+
+slider.oninput = function() {
+  var getDiv = document.getElementsByClassName("flexDiv")[0];
+  getDiv.style.width = this.value;
 }
