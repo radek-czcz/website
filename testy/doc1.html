@@ -21,6 +21,19 @@ VLINK="navy">
 </HTML>
 <HTML>
 <SCRIPT>
+
+function personLogsSomeThings(person, ...msg) {
+   msg.forEach(arg => {
+       console.log(person, 'says', arg);
+   });
+}
+personLogsSomeThings('John', 'hello', 'world');
+
+let node1 = document.querySelector('a');
+for (let runner in node1) {
+  console.log(runner.parentNode);
+}
+
 </SCRIPT>
 
 <BODY

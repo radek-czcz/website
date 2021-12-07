@@ -7,35 +7,35 @@ body {
 }*/
 
 body div.cont {
-  overflow:visible;
-  display: inline;
+  overflow-x: visible;
   position: fixed;
   width: 20%;
   right: 50px;
-  top: 10px;
-  padding: 10px;
+  top: 15px;
 }
 
 body div.thisDiv {
-  position: fixed;
-  width: 20%;
+  position: relative;
+  width: 55%;
   background-color: yellow;
-  right: 50px;
-  top: 10px;
   overflow: hidden;
   overflow-wrap: break-word;
   padding: 10px;
+  padding-top: 5px;
+  display: inline-block;
 }
 
 body div.logButton {
   position:relative;
-  width: 7%;
+  width: 32%;
   background-color: #abc;
-  right: 6px;
-  top: 6px;
   overflow: hidden;
   overflow-wrap: break-word;
-  padding: 3px;
+  padding: 5px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  margin-right: 5px;
 }
 
 div p a b {
