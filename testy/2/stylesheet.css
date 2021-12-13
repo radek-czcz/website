@@ -15,17 +15,20 @@ body div.cont {
 }
 
 body div.thisDiv {
+  font-weight: 100;
   position: relative;
   width: 55%;
-  background-color: yellow;
+  background: radial-gradient(#7191d1, #315191);
   overflow: hidden;
   overflow-wrap: break-word;
   padding: 10px;
   padding-top: 5px;
   display: inline-block;
+  color: white;
 }
 
 body div.logButton {
+  background:  radial-gradient(#7191d1, #315191);
   position:relative;
   width: 32%;
   background-color: #abc;
@@ -36,9 +39,32 @@ body div.logButton {
   vertical-align: top;
   text-align: center;
   margin-right: 5px;
+  color: white;
 }
 
 div p a b {
   overflow: hidden;
   overflow-wrap = Normal;
 }
+
+.contr1 {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.elm {
+  padding: 10px;
+  margin: 5px;
+  background-color: green;
+  height: 100px;
+  width: 200px;
+}
+
+/*div .contr1:hover {
+  width: 300px;
+  transition-property: width;
+  transition-duration: 1s;
+}*/
