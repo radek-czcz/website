@@ -56,15 +56,18 @@ div p a b {
 }
 
 .elm {
+  transform: scale(1);
   padding: 10px;
   margin: 5px;
   background-color: green;
   height: 100px;
   width: 200px;
+  transition-property: width, transform;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
 }
 
-/*div .contr1:hover {
+div .elm:hover {
   width: 300px;
-  transition-property: width;
-  transition-duration: 1s;
-}*/
+  transform: scale(1.03);
+}
