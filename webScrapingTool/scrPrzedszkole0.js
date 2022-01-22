@@ -64,6 +64,6 @@ function downloadAll(){
 
 
 
-//„MALINKI” ŚWIĘTUJĄ URODZINY ZOSI
+//wszystkie galerie ze słowem malink zgrane.
 
-scrapePrice('https://psloneczko.szkolnastrona.pl/index.php?c=modules&mod=mod_gallery&type=art&id=2474');
+scrapePrice('https://psloneczko.szkolnastrona.pl/galeria,art,2772,chlopcy-z-grupy-kotki-i-malinki-pamietali-o-swoich-kolezankach');

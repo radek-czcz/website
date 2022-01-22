@@ -12,3 +12,7 @@ function addToArr(elem) {
 
 repeat(3, addToArr);
 console.log(arrVall);
+
+function action(inp) {
+  console.log(inp);
+}

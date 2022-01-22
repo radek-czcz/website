@@ -29,9 +29,9 @@ async function scrapePrice(url){
 const issueSrcs = await page.evaluate(() => {
 
   var str = [
-  'div.cat-prod-row.js_category-list-item.js_clickHashData.js_man-track-event',
-  'a.go-to-product.js_conv.js_clickHash.js_seoUrl span',// span',
-  'span.price-format span.price span.value'
+  'div.list-items',
+  'a.is-animate.spark-link',
+  'span.whole'
 ]
 
   //var str = 'div.category-list-body.js_category-list-body.js_search-results.js_products-list-main > span.price-format span.price span.value';
@@ -52,7 +52,7 @@ const issueSrcs = await page.evaluate(() => {
   //const srcsPrice2 = srcsPrice1.filter(inp => inp.toLowerCase()).includes('moser');
 
   var srcs2 = [];
-  srcs2 = srcsPrice1.map(function(a, i) {return a + " " + srcsName1[i]})
+  srcs2 = srcsPrice1.map(function(a, i) {return a + " " + srcsName1[i]});
 
   //document.querySelectorAll(str)).evaluate(inp => inp.textContent, inp
   console.log('there are ' + srcs.lenght + 'products found');
@@ -67,7 +67,7 @@ const issueSrcs = await page.evaluate(() => {
   //document.querySelectorAll(str[0] + ' > ' + str[2])).map(inp => inp.textContent
 );*/
   //console.log(srcs2);
-  return srcs2;
+  return srcs;
 });
 
 //console.log(issueSrcs.length);
@@ -101,4 +101,4 @@ function downloadAll(){
 
 
 //„MALINKI” ŚWIĘTUJĄ URODZINY ZOSI
-scrapePrice('https://www.ceneo.pl/Maszynki_do_strzyzenia/p:Moser;n150;0112-0.htm');
+scrapePrice('https://www.mediaexpert.pl/agd-male/zdrowie-i-uroda/strzyzarki/moser');

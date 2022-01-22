@@ -4,7 +4,7 @@ const fs = require('fs');
 const request = require('request');
 
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-puppeteer.use(StealthPlugin())
+puppeteer.use(StealthPlugin());
 
 function download(uri, filename) {
   return new Promise((resolve, reject) => {
@@ -17,57 +17,44 @@ function download(uri, filename) {
 async function scrapePrice(url){
 
   const browser = await puppeteer.launch({
-        headless: true,
-        /*devtools: false,*/
-        //slowMo:1000,
-        args: ['--no-sandbox', '--incognito']});
-        console.log("browser loaded");
+    headless: true,
+    /*devtools: false,*/
+    //slowMo:1000,
+    args: ['--no-sandbox', '--incognito']});
   const page  = await browser.newPage();
   await page.goto(url, {waitUntil: 'domcontentloaded'});
-  console.log("page loaded");
+  var issueSrcs;
+  console.log(issueSrcs);
+  //downloadAll();
+  await page.close();
+  await browser.close();
 
-const issueSrcs = await page.evaluate(() => {
+
+
+issueSrcs = await page.evaluate(() => {
 
   var str = [
   'div.cat-prod-row.js_category-list-item.js_clickHashData.js_man-track-event',
-  'a.go-to-product.js_conv.js_clickHash.js_seoUrl span',// span',
+  'a.go-to-product.js_conv.js_clickHash.js_seoUrl span',
   'span.price-format span.price span.value'
-]
-
+  ]
   //var str = 'div.category-list-body.js_category-list-body.js_search-results.js_products-list-main > span.price-format span.price span.value';
-  var srcs = Array.from(
+  const srcs = await Array.from(
   //document.querySelectorAll(str)).map(inp => inp.getAttribute('textContent').jsonValue()
   document.querySelectorAll(str[0]));//.map(inp => inp.textContent);
-
-  var srcsFiltered = srcs.filter(inp => inp.textContent.toLowerCase().includes('moser'));
-
-  const srcsName = srcsFiltered.map(inp => inp.querySelector(str[1]));
-  const srcsPrice = srcsFiltered.map(inp => inp.querySelector(str[2]));
-  //const srcsConst = Array.from(document.querySelectorAll(str[1]));
-
-  const srcsName1 = srcsName.map(inp => inp.textContent)
-  //const srcsName2 = srcsName1.filter(inp => inp.toLowerCase()).includes('moser');
-
-  const srcsPrice1 = srcsPrice.map(inp => inp.textContent)
-  //const srcsPrice2 = srcsPrice1.filter(inp => inp.toLowerCase()).includes('moser');
-
-  var srcs2 = [];
-  srcs2 = srcsPrice1.map(function(a, i) {return a + " " + srcsName1[i]})
-
   //document.querySelectorAll(str)).evaluate(inp => inp.textContent, inp
-  console.log('there are ' + srcs.lenght + 'products found');
 
+  /*const srcs2 = Array.from(
+  //document.querySelectorAll(str[0] + ' > ' + str[2])).map(inp => inp.textContent
+  );*/
+  //console.log(srcs2);
+  console.log('there are ' + srcs.lenght + 'products found');
   for (nth=0; nth < srcs.length; nth++) {
     console.log(typeof srcs[nth]);
     let mainElArr = srcs[nth].querySelectorAll(str[1]);
     console.log(srcs[nth].textContent);
   }
-
-  /*const srcs2 = Array.from(
-  //document.querySelectorAll(str[0] + ' > ' + str[2])).map(inp => inp.textContent
-);*/
-  //console.log(srcs2);
-  return srcs2;
+  return srcs;
 });
 
 //console.log(issueSrcs.length);
@@ -89,13 +76,6 @@ function downloadAll(){
   }
     return newStr;
 }
-
-  console.log('set of srcs:');
-  console.log(issueSrcs);
-  //downloadAll();
-
-  await page.close();
-  await browser.close();
 }
 
 
