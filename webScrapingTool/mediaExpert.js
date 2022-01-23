@@ -23,7 +23,7 @@ async function scrapePrice(url){
         args: ['--no-sandbox', '--incognito']});
         console.log("browser loaded");
   const page  = await browser.newPage();
-  await page.goto(url, {waitUntil: 'domcontentloaded'});
+  await page.goto(url);
   console.log("page loaded");
 
 const issueSrcs = await page.evaluate(() => {
@@ -39,7 +39,11 @@ const issueSrcs = await page.evaluate(() => {
   //document.querySelectorAll(str)).map(inp => inp.getAttribute('textContent').jsonValue()
   document.querySelectorAll(str[0]));//.map(inp => inp.textContent);
 
+  //srcs = document.querySelector(str[0]);
+
   var srcsFiltered = srcs.filter(inp => inp.textContent.toLowerCase().includes('moser'));
+
+  const srcsNameee = Array.from(srcs[0].querySelectorAll(str[1]));
 
   const srcsName = srcsFiltered.map(inp => inp.querySelector(str[1]));
   const srcsPrice = srcsFiltered.map(inp => inp.querySelector(str[2]));
@@ -89,7 +93,8 @@ function downloadAll(){
   }
     return newStr;
 }
-
+  
+  console.log(issueSrcs.length);
   console.log('set of srcs:');
   console.log(issueSrcs);
   //downloadAll();
