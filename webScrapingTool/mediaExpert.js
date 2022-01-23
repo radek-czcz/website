@@ -30,31 +30,38 @@ const issueSrcs = await page.evaluate(() => {
 
   var str = [
   'div.list-items',
+  'div.offer-box',
   'a.is-animate.spark-link',
   'div.main-price.is-big span.whole'
 ]
 
 
   srcs = document.querySelector(str[0]);
+  srcs2 = Array.from(srcs.querySelectorAll(str[1]));
   
-  //var srcsFiltered = srcs.filter(inp => inp.textContent.toLowerCase().includes('moser'));
+  //var productFramesFiltered = srcs.filter(inp => inp.textContent.toLowerCase().includes('moser'));
+  var productFramesFiltered = srcs2.filter(inp => inp.textContent.toLowerCase().includes('remington'));
+  const allProductsFrames = productFramesFiltered.map(inp => inp.querySelector(str[2]));
 
-  const srcsNameee = Array.from(srcs.querySelectorAll(str[1]));
-
-  var srcsFiltered = srcsNameee.filter(inp => inp.textContent.toLowerCase().includes('moser'));
 
   //const srcsConst = Array.from(document.querySelectorAll(str[1]));
 
-  const srcsName1 = srcsFiltered.map(inp => inp.textContent);
+  const srcsName1 = allProductsFrames.map(inp => inp.textContent);
 
   //const srcsName2 = srcsName1.filter(inp => inp.toLowerCase()).includes('moser');
-  const srcsPriceee = srcs.querySelector(str[2]);
-  const srcsPrice1 = srcsPriceee.textContent;
+  const srcsPriceee = productFramesFiltered.map(inp => inp.querySelector(str[3]));
+  const srcsPrice1 = srcsPriceee.map(function(inp) {
+    if (inp === null)
+      return "---";
+    else 
+      return inp.textContent;
+  });
+
   //const srcsPrice2 = srcsPrice1.filter(inp => inp.toLowerCase()).includes('moser');
 
-  var srcs2 = [];
-  srcs2 = srcsName1.map(function(a) {return srcsPrice1 + " " + a});
-  return srcs2;
+  var srcs3 = [];
+  srcs3 = srcsName1.map(function(a, i) {return srcsPrice1[i] + " " + a.trim()});
+  return srcs3;
 
 
   //document.querySelectorAll(str)).evaluate(inp => inp.textContent, inp
@@ -65,11 +72,11 @@ const issueSrcs = await page.evaluate(() => {
     console.log(srcs[nth].textContent);
   }
 
-  /*const srcs2 = Array.from(
+  /*const srcs3 = Array.from(
   //document.querySelectorAll(str[0] + ' > ' + str[2])).map(inp => inp.textContent
 );*/
-  //console.log(srcs2);
-  return srcsNameee;
+  //console.log(srcs3);
+  return allProductsFrames;
 });
 
 //console.log(issueSrcs.length);
@@ -104,4 +111,4 @@ function downloadAll(){
 
 
 //„MALINKI” ŚWIĘTUJĄ URODZINY ZOSI
-scrapePrice('https://www.mediaexpert.pl/agd-male/zdrowie-i-uroda/strzyzarki/moser');
+scrapePrice('https://www.mediaexpert.pl/agd-male/zdrowie-i-uroda/strzyzarki/philips.remington');
