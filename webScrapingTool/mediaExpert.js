@@ -31,35 +31,33 @@ const issueSrcs = await page.evaluate(() => {
   var str = [
   'div.list-items',
   'a.is-animate.spark-link',
-  'span.whole'
+  'div.main-price.is-big span.whole'
 ]
 
-  //var str = 'div.category-list-body.js_category-list-body.js_search-results.js_products-list-main > span.price-format span.price span.value';
-  var srcs = Array.from(
-  //document.querySelectorAll(str)).map(inp => inp.getAttribute('textContent').jsonValue()
-  document.querySelectorAll(str[0]));//.map(inp => inp.textContent);
 
-  //srcs = document.querySelector(str[0]);
+  srcs = document.querySelector(str[0]);
+  
+  //var srcsFiltered = srcs.filter(inp => inp.textContent.toLowerCase().includes('moser'));
 
-  var srcsFiltered = srcs.filter(inp => inp.textContent.toLowerCase().includes('moser'));
+  const srcsNameee = Array.from(srcs.querySelectorAll(str[1]));
 
-  const srcsNameee = Array.from(srcs[0].querySelectorAll(str[1]));
+  var srcsFiltered = srcsNameee.filter(inp => inp.textContent.toLowerCase().includes('moser'));
 
-  const srcsName = srcsFiltered.map(inp => inp.querySelector(str[1]));
-  const srcsPrice = srcsFiltered.map(inp => inp.querySelector(str[2]));
   //const srcsConst = Array.from(document.querySelectorAll(str[1]));
 
-  const srcsName1 = srcsName.map(inp => inp.textContent)
-  //const srcsName2 = srcsName1.filter(inp => inp.toLowerCase()).includes('moser');
+  const srcsName1 = srcsFiltered.map(inp => inp.textContent);
 
-  const srcsPrice1 = srcsPrice.map(inp => inp.textContent)
+  //const srcsName2 = srcsName1.filter(inp => inp.toLowerCase()).includes('moser');
+  const srcsPriceee = srcs.querySelector(str[2]);
+  const srcsPrice1 = srcsPriceee.textContent;
   //const srcsPrice2 = srcsPrice1.filter(inp => inp.toLowerCase()).includes('moser');
 
   var srcs2 = [];
-  srcs2 = srcsPrice1.map(function(a, i) {return a + " " + srcsName1[i]});
+  srcs2 = srcsName1.map(function(a) {return srcsPrice1 + " " + a});
+  return srcs2;
+
 
   //document.querySelectorAll(str)).evaluate(inp => inp.textContent, inp
-  console.log('there are ' + srcs.lenght + 'products found');
 
   for (nth=0; nth < srcs.length; nth++) {
     console.log(typeof srcs[nth]);
@@ -71,7 +69,7 @@ const issueSrcs = await page.evaluate(() => {
   //document.querySelectorAll(str[0] + ' > ' + str[2])).map(inp => inp.textContent
 );*/
   //console.log(srcs2);
-  return srcs;
+  return srcsNameee;
 });
 
 //console.log(issueSrcs.length);
