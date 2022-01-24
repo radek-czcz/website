@@ -17,14 +17,31 @@ function download(uri, filename) {
 async function scrapePrice(url){
 
   const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         /*devtools: false,*/
         //slowMo:1000,
         args: ['--no-sandbox', '--incognito']});
         console.log("browser loaded");
   const page  = await browser.newPage();
-  await page.goto(url);
+  await page.goto(url, {
+  waitUntil: 'networkidle2',
+});
+
+  //await page.waitForSelector('.price-with-code-emblem');
   console.log("page loaded");
+
+  await page.evaluate(() => new Promise((resolve) => {
+  var scrollTop = -1;
+  const interval = setInterval(() => {
+    window.scrollBy(0, 100);
+    if(document.documentElement.scrollTop !== scrollTop) {
+      scrollTop = document.documentElement.scrollTop;
+      return;
+    }
+    clearInterval(interval);
+    resolve();
+  }, 10);
+}));
 
 const issueSrcs = await page.evaluate(() => {
 
@@ -46,14 +63,19 @@ const issueSrcs = await page.evaluate(() => {
   var productFramesFiltered2 = productFramesFiltered.filter(inp => !inp.querySelector('.icon-box-bold'));
 
   const allProductsFrames = productFramesFiltered2.map(inp => inp.querySelector(str[2]));
-
-
   //const srcsConst = Array.from(document.querySelectorAll(str[1]));
-
   const srcsName1 = allProductsFrames.map(inp => inp.textContent);
 
   //const srcsName2 = srcsName1.filter(inp => inp.toLowerCase()).includes('moser');
-  const srcsPriceee = productFramesFiltered.map(inp => inp.querySelector(str[3]));
+  const srcsPriceee = productFramesFiltered2.map(function(inp) {
+    const promoPrice = inp.querySelector('div.price-with-code-emblem');
+    if (promoPrice) {
+      return promoPrice.querySelector('span.whole');
+    } else {
+      return inp.querySelector(str[3]);
+    }
+  });
+
   const srcsPrice1 = srcsPriceee.map(function(inp) {
     if (inp === null)
       return "---";
