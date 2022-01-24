@@ -38,10 +38,14 @@ const issueSrcs = await page.evaluate(() => {
 
   srcs = document.querySelector(str[0]);
   srcs2 = Array.from(srcs.querySelectorAll(str[1]));
-  
+
   //var productFramesFiltered = srcs.filter(inp => inp.textContent.toLowerCase().includes('moser'));
   var productFramesFiltered = srcs2.filter(inp => inp.textContent.toLowerCase().includes('remington'));
-  const allProductsFrames = productFramesFiltered.map(inp => inp.querySelector(str[2]));
+
+  //selecting all currently avalible products, using falsy expr. !inp.querySelector('.icon-box-bold')
+  var productFramesFiltered2 = productFramesFiltered.filter(inp => !inp.querySelector('.icon-box-bold'));
+
+  const allProductsFrames = productFramesFiltered2.map(inp => inp.querySelector(str[2]));
 
 
   //const srcsConst = Array.from(document.querySelectorAll(str[1]));
@@ -53,7 +57,7 @@ const issueSrcs = await page.evaluate(() => {
   const srcsPrice1 = srcsPriceee.map(function(inp) {
     if (inp === null)
       return "---";
-    else 
+    else
       return inp.textContent;
   });
 
@@ -98,7 +102,7 @@ function downloadAll(){
   }
     return newStr;
 }
-  
+
   console.log(issueSrcs.length);
   console.log('set of srcs:');
   console.log(issueSrcs);
