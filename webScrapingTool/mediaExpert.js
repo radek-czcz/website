@@ -6,14 +6,6 @@ const request = require('request');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 puppeteer.use(StealthPlugin())
 
-function download(uri, filename) {
-  return new Promise((resolve, reject) => {
-    request.head(uri, function (err, res, body) {
-      request(uri).pipe(fs.createWriteStream(filename)).on('close', resolve);
-    });
-  });
-}
-
 async function scrapePrice(url){
 
   const browser = await puppeteer.launch({
@@ -43,7 +35,7 @@ async function scrapePrice(url){
   }, 10);
 }));
 
-const issueSrcs = await page.evaluate(() => {
+const dataExtract = await page.evaluate(() => {
 
   var str = [
   'div.list-items',
@@ -53,21 +45,21 @@ const issueSrcs = await page.evaluate(() => {
 ]
 
 
-  srcs = document.querySelector(str[0]);
-  srcs2 = Array.from(srcs.querySelectorAll(str[1]));
+  allProducts = document.querySelector(str[0]);
+  productBoxes = Array.from(allProducts.querySelectorAll(str[1]));
 
   //var productFramesFiltered = srcs.filter(inp => inp.textContent.toLowerCase().includes('moser'));
-  var productFramesFiltered = srcs2.filter(inp => inp.textContent.toLowerCase().includes('remington'));
+  var productsNamed = productBoxes.filter(inp => inp.textContent.toLowerCase().includes('remington'));
 
   //selecting all currently avalible products, using falsy expr. !inp.querySelector('.icon-box-bold')
-  var productFramesFiltered2 = productFramesFiltered.filter(inp => !inp.querySelector('.icon-box-bold'));
+  var productsAvalible = productsNamed.filter(inp => !inp.querySelector('.icon-box-bold'));
 
-  const allProductsFrames = productFramesFiltered2.map(inp => inp.querySelector(str[2]));
+  const namesSelection = productsAvalible.map(inp => inp.querySelector(str[2]));
   //const srcsConst = Array.from(document.querySelectorAll(str[1]));
-  const srcsName1 = allProductsFrames.map(inp => inp.textContent);
+  const names = namesSelection.map(inp => inp.textContent);
 
-  //const srcsName2 = srcsName1.filter(inp => inp.toLowerCase()).includes('moser');
-  const srcsPriceee = productFramesFiltered2.map(function(inp) {
+  //const srcsName2 = names.filter(inp => inp.toLowerCase()).includes('moser');
+  const pricesSelection = productsAvalible.map(function(inp) {
     const promoPrice = inp.querySelector('div.price-with-code-emblem');
     if (promoPrice) {
       return promoPrice.querySelector('span.whole');
@@ -76,59 +68,47 @@ const issueSrcs = await page.evaluate(() => {
     }
   });
 
-  const srcsPrice1 = srcsPriceee.map(function(inp) {
+  const prices = pricesSelection.map(function(inp) {
     if (inp === null)
-      return "---";
+      return "----";
     else
-      return inp.textContent;
+      return inp.textContent.padStart(4,' ');
   });
 
-  //const srcsPrice2 = srcsPrice1.filter(inp => inp.toLowerCase()).includes('moser');
+  //const srcsPrice2 = prices.filter(inp => inp.toLowerCase()).includes('moser');
 
   var srcs3 = [];
-  srcs3 = srcsName1.map(function(a, i) {return srcsPrice1[i] + " " + a.trim()});
+  srcs3 = names.map(function(a, i) {return prices[i] + " " + a.trim()});
   return srcs3;
 
 
   //document.querySelectorAll(str)).evaluate(inp => inp.textContent, inp
 
-  for (nth=0; nth < srcs.length; nth++) {
+  /*for (nth=0; nth < srcs.length; nth++) {
     console.log(typeof srcs[nth]);
     let mainElArr = srcs[nth].querySelectorAll(str[1]);
     console.log(srcs[nth].textContent);
-  }
+  }*/
 
   /*const srcs3 = Array.from(
   //document.querySelectorAll(str[0] + ' > ' + str[2])).map(inp => inp.textContent
 );*/
   //console.log(srcs3);
-  return allProductsFrames;
+  return namesSelection;
 });
 
-//console.log(issueSrcs.length);
-//console.log(issueSrcs);
+//console.log(dataExtract.length);
+//console.log(dataExtract);
 
   /*for (let runner = 1; runner < 3;  runner++) {
-  issueSrcs[runner].click;
+  dataExtract[runner].click;
 };*/
 
-function downloadAll(){
-  for (let runner in issueSrcs){
-    var dir = "C:/Users/Kamila i Radek/Desktop/javaScript/Nowy folder (2)/aa/";
-    var newStr = issueSrcs.map(inp => dir + inp.substring(inp.lastIndexOf('/')+1));
-  }
-  for (nth=1; nth < issueSrcs.length; nth++){
-    //console.log(issueSrcs[nth]);
-    //console.log(newStr[nth]);
-    download(issueSrcs[nth], newStr[nth]);
-  }
-    return newStr;
-}
-
-  console.log(issueSrcs.length);
+  console.log(dataExtract.length);
   console.log('set of srcs:');
-  console.log(issueSrcs);
-  //downloadAll();
+  console.log(dataExtract.sort((a,b) => {
+    return a.substring(0,4).trim() - b.substring(0,4).trim();
+  }));
 
   await page.close();
   await browser.close();
