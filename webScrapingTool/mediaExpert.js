@@ -17,7 +17,7 @@ function download(uri, filename) {
 async function scrapePrice(url){
 
   const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         /*devtools: false,*/
         //slowMo:1000,
         args: ['--no-sandbox', '--incognito']});
