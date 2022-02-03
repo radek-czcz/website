@@ -1,6 +1,6 @@
 
-const puppeteer = require('puppeteer-extra')
 const fs = require('fs');
+const puppeteer = require('puppeteer-extra')
 const request = require('request');
 
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
@@ -109,6 +109,12 @@ const dataExtract = await page.evaluate(() => {
   console.log(dataExtract.sort((a,b) => {
     return a.substring(0,4).trim() - b.substring(0,4).trim();
   }));
+
+dataExtract.forEach(inp =>
+
+  fs.appendFileSync('mediaExpertDataFile.txt', inp+'\n')
+
+)
 
   await page.close();
   await browser.close();
