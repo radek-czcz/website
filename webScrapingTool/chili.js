@@ -46,14 +46,9 @@ const dataExtract = await page.evaluate(() => {
   'span.ellipsis-footer.white.testo-4 span span'
 ]
 
-  const allProducts = window.setTimeout(sub1, 5000);
-
+  //const allProducts = document.querySelector(str[0]);
+  const allProducts = document.querySelector(str[1]).textContent;
   return allProducts;
-  function sub1(){
-  const allProducts = document.querySelector(str[0]);
-  return allProducts;
-  }
-  //return allProducts;
   const productBoxes = Array.from(allProducts.querySelectorAll(str[2]));
   return productBoxes;
   var productsPriceFiltered = productBoxes.filter(inp => inp.querySelector(str[3]).toLowerCase().includes('6,90'));
