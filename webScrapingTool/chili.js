@@ -23,18 +23,24 @@ await page.waitForSelector('span.ellipsis-footer');
 console.log("page loaded");
   //await page.waitForSelector('.price-with-code-emblem');
 
-  /*await page.evaluate(() => new Promise((resolve) => {
+
+
+  await page.evaluate(() => new Promise((resolve) => {
+  sel = 'div.price-footer';
+  var movieCount = 0;
   var scrollTop = -1;
   const interval = setInterval(() => {
-    window.scrollBy(0, 100);
-    if(document.documentElement.scrollTop !== scrollTop) {
+
+    window.scrollBy(0, 10000);
+    if(document.documentElement.scrollTop !== scrollTop && movieCount != Array.from(document.querySelectorAll(sel)).filter(inp => inp.textContent.toLowerCase().includes('6,90')).length){ //|| movieCount !== document.querySelectorAll(sel).filter(inp => inp.textContent.toLowerCase().includes('6,90')).length) {
       scrollTop = document.documentElement.scrollTop;
+      movieCount = Array.from(document.querySelectorAll(sel)).filter(inp => inp.textContent.toLowerCase().includes('6,90')).length;
       return;
     }
     clearInterval(interval);
     resolve();
-  }, 10);
-}));*/
+  }, 2000);
+}));
 
 const dataExtract = await page.evaluate(() => {
 
@@ -44,14 +50,15 @@ const dataExtract = await page.evaluate(() => {
   'div.footer-icon',
   'div.price-footer',
   'span.ellipsis-footer.white.testo-4 span span'
-]
+  ]
 
-  //const allProducts = document.querySelector(str[0]);
-  const allProducts = document.querySelector(str[1]).textContent;
-  return allProducts;
+  const allProducts = document.querySelector(str[0]);
+  //const allProducts = document.querySelector(str[1]).textContent;
+  //return allProducts;
   const productBoxes = Array.from(allProducts.querySelectorAll(str[2]));
-  return productBoxes;
-  var productsPriceFiltered = productBoxes.filter(inp => inp.querySelector(str[3]).toLowerCase().includes('6,90'));
+  //return productBoxes.map(inp => inp.textContent);
+  var productsPriceFiltered = productBoxes.filter(inp => inp.querySelector(str[3]).textContent.toLowerCase().includes('6,90'));
+  return productsPriceFiltered.map(inp => inp.querySelector(str[4]).textContent);
   const names = productsPriceFiltered.map(inp => inp.querySelector(str[4]).textContent);
   const prices = productsPriceFiltered.map(inp => inp.querySelector(str[3]).textContent);
 
@@ -76,4 +83,4 @@ const dataExtract = await page.evaluate(() => {
 
 
 //„MALINKI” ŚWIĘTUJĄ URODZINY ZOSI
-scrapePrice('https://pl.chili.com/showcase/premiery/2f66e28a-cdbc-48ab-87e6-8da6fb9161b8');
+scrapePrice('https://pl.chili.com/showcase/premiery/2f66e28a-cdbc-48ab-87e6-8da6fb9161b8?orderBy=PRICE_ASC');
