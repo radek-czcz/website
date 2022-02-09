@@ -110,11 +110,18 @@ const dataExtract = await page.evaluate(() => {
     return a.substring(0,4).trim() - b.substring(0,4).trim();
   }));
 
-dataExtract.forEach(inp =>
+//for (i = 0;  i<dataExtract.length; i++) {
+function append(item) {
+  console.log('before append ' + dataExtract[item]);
+  fs.appendFile('mediaExpertDataFile.txt', dataExtract[item] + "\r\n", () => {
+  console.log('after append ' + dataExtract[item])
+  if (++item < dataExtract.length)
+  append(item);
+});
+}
+//}
 
-  fs.appendFileSync('mediaExpertDataFile.txt', inp+'\n')
-
-)
+append(0);
 
   await page.close();
   await browser.close();

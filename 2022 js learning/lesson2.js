@@ -7,12 +7,13 @@ var timeDiff = function(inp) {
 }
 
 var time;
-
 const getData1 = new Promise((resolve, reject) => {
     time = Date.now();
     console.log('start reading file at ' + timeDiff(time))
+
     //fs.readFile(path, () => resolve('file read resolved'));
     const data = fs.readFile(path, 'utf-8', (err, data) => {
+    console.log('reading file at ' + timeDiff(time))
     if (data) {
       var dataArray = data.split("\n");
       var dataArray2 = dataArray.map(inp => inp.split(','))
@@ -22,21 +23,22 @@ const getData1 = new Promise((resolve, reject) => {
       console.log(err);
       reject('data retrieve failed at ' + timeDiff(time));
     }
-  }
+  })
       /*if (err) {reject('data retrieve failed');
     }
       else {resolve('reading finished');}
   })*/
     //if (data) resolve('data avalible');
     //else reject('data resolving failed');
-)})
+
+})
 
 const myTimer = new Promise((resolve, reject) => {
   console.log('timer starts at ' + timeDiff(time));
   setTimeout(() => {
     console.log('timer finished at ' + timeDiff(time));
     resolve('timer resolved');
-  },0);
+  },20);
   //resolve('timer resolved');
 })
 

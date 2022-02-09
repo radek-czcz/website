@@ -39,7 +39,7 @@ console.log("page loaded");
     }
     clearInterval(interval);
     resolve();
-  }, 2000);
+  }, 100);
 }));
 
 const dataExtract = await page.evaluate(() => {
@@ -75,6 +75,8 @@ const dataExtract = await page.evaluate(() => {
   console.log(dataExtract.sort((a,b) => {
     return a.substring(0,4).trim() - b.substring(0,4).trim();
   }));*/
+
+
 
   await page.close();
   await browser.close();
