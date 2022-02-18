@@ -10,12 +10,24 @@
     </style>
   </head>
   <body>
+     <script>
+
+        if ('geolocation' in navigator) {
+           console.log('geolocation avalible');}
+        else
+           {console.log('geolocation not avalible');}
+
+      navigator.geolocation.getCurrentPosition(position => {
+         console.log(position);
+      })
+
+     </script>
     <h1>This is my first server</h1>
     <p id = "nameField">name: </p>
   </body>
   <script
 
-    src = 'apiCall.js' defer>
+    src = 'apiCall1.js' defer>
 
 
 

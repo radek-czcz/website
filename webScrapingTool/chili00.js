@@ -7,26 +7,35 @@ puppeteer.use(StealthPlugin())
 
 async function scrapePrice(url) {
 
-  const browser = await puppeteer.launch({
-    //headless: false,
-    headless: false,
-    /*devtools: false,*/
-    //slowMo:300,
-    //devtools: true,
-    args: ['--no-sandbox', '--incognito']
-  });
+const br = function() {
+   return new Promise((resolve, reject) => {
+   const br1 = puppeteer.launch({
+     //headless: false,
+     headless: false,
+     /*devtools: false,*/
+     //slowMo:300,
+     //devtools: true,
+     args: ['--no-sandbox', '--incognito']
+  })
+  resolve(br1);
+})}
 
-  console.log("browser loaded");
-  const page2 = await browser.newPage();
-  const page = await browser.newPage();
-  await page.goto(url, {
-    waitUntil: 'networkidle2',
-  });
+const browser = await br();
 
-  await page.waitForSelector('.all-wrapper-a');
-  console.log("page loaded");
+console.log("browser loaded");
+const page = browser.newPage();
+console.log("tab opened");
+const page1 = await browser.newPage();
+console.log("tab opened");
+await page1.goto(url, {
+  waitUntil: 'networkidle2',
+});
+console.log("page opened");
 
-  await page.evaluate(() => new Promise((resolve) => {
+  await page1.waitForSelector('.all-wrapper-a');
+  console.log("selector loaded");
+
+  await page1.evaluate(() => new Promise((resolve) => {
   sel = 'div.price-footer';
   var movieCount = 0;
   var scrollTop = -1;
@@ -52,7 +61,7 @@ async function scrapePrice(url) {
     return [href, name];
   }
 
-  const ev = await page.$$eval('.all-wrapper-a', getHref);
+  const ev = await page1.$$eval('.all-wrapper-a', getHref);
 
   const href = ev[0];
   const name = ev[1];
@@ -61,23 +70,40 @@ async function scrapePrice(url) {
   //.slice(0,3)
 
   let price = [];
-  for (nth = 1; nth < href.length; nth++) {
+  nth = 1;
+//console.log(page.title + href[nth] + nth);
 
-    await page.goto(href[nth], {
-      waitUntil: 'networkidle2',
-    })
-    await page.waitForSelector('#open-purchase-options-cta-VOD48h');
-    const clBuy = await page.evaluate((inp) => {
-      document.querySelector('#open-purchase-options-cta-VOD48h').click();
+async function go(url, count) {
+   console.log(page1.title + "\r\n" + url +  "\r\n" + count);
+   if (nth < href.length){
+   await page1.goto(url, {waitUntil: 'domcontentloaded'});
+   await page1.waitForSelector('#open-purchase-options-cta-VOD48h');
 
-      const hdPrice = document.querySelector('#HD-option-price').textContent;
-      //console.log(hdPrice.textContent);
-      //console.log(hdPrice.querySelector('#HD-option-price').textContent);
-      return hdPrice
-    }, price)
-    //console.log(clBuy);
-    price.push(parseFloat(clBuy.replace(',','.')));
-  };
+   const clBuy = await page1.evaluate((result) => {
+   document.querySelector('#open-purchase-options-cta-VOD48h').click();
+   const hdPrice = document.querySelector('#HD-option-price').textContent;
+   return hdPrice;
+   });
+   console.log(hdPrice);
+
+
+   console.log(92);
+   price.push(parseFloat(clBuy.replace(',','.')));
+   console.log(94);
+   console.log('before ' + nth);
+   nth++;
+   console.log('after ' + nth);
+
+} else clearInterval();
+}
+
+function go2() {
+   return new Promise((resolve, reject) => {
+const wait = setInterval(go, 10000, href[nth], nth);
+})
+}
+
+await go2();
 
   const srcs3 = price.map(function(a, i) {return a.toString().padEnd(6,' ') + " " + name[i]});
   console.log(srcs3.sort((a, b) => {
@@ -108,7 +134,9 @@ async function scrapePrice(url) {
 
   console.log('all pages closed');
 
-  await browser.close();
+
+
+  browser.close();
 }
 
 

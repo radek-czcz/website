@@ -36,7 +36,7 @@ async function scrapePrice(url){
          }
          clearInterval(interval);
          resolve();
-      }, 10);
+      }, 300);
    }));
 
    const dataExtract = await page.evaluate(() => {
@@ -59,7 +59,7 @@ async function scrapePrice(url){
 // ALL PRODUCT FRAMES
       productBoxes = Array.from(document.querySelectorAll(str[0] + ' ' + str[1]))
 // FILTERED (MANUFACTURER) ALL PRODUCT FRAMES
-         .filter(inp => inp.textContent.toLowerCase().includes(filterString[0]))
+         //.filter(inp => inp.textContent.toLowerCase().includes(filterString[0]))
 // FILTERED (ONLY AVALIBLE TO BUY) ALL PRODUCT FRAMES - falsy expr: !inp.querySelector('.icon-box-bold')
          .filter(inp => !inp.querySelector(filterString[1]));
 // MAPPED (TO PRODUCTS NAMES UNTRIMMED)
