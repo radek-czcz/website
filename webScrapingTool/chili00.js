@@ -74,8 +74,8 @@ console.log("page opened");
 //console.log(page.title + href[nth] + nth);
 
 async function go(url, count) {
-   console.log(page1.title + "\r\n" + url +  "\r\n" + count);
-   if (nth < href.length){
+   console.log(page1.title + "\r\n" + url +  "\r\n" + count + ' ' + nth);
+   if (count < href.length){
    await page1.goto(url, {waitUntil: 'domcontentloaded'});
    await page1.waitForSelector('#open-purchase-options-cta-VOD48h');
 
@@ -84,15 +84,16 @@ async function go(url, count) {
    const hdPrice = document.querySelector('#HD-option-price').textContent;
    return hdPrice;
    });
-   console.log(hdPrice);
+   console.log(clBuy);
 
 
    console.log(92);
    price.push(parseFloat(clBuy.replace(',','.')));
    console.log(94);
-   console.log('before ' + nth);
+   console.log('before ' + count);
+   count++;
    nth++;
-   console.log('after ' + nth);
+   console.log('after ' + count);
 
 } else clearInterval();
 }
