@@ -73,10 +73,10 @@ console.log("page opened");
   nth = 1;
 //console.log(page.title + href[nth] + nth);
 
-async function go(url, count) {
+/*const go = async function go(urls, count) {
    console.log(page1.title + "\r\n" + url +  "\r\n" + count + ' ' + nth);
-   if (count < href.length){
-   await page1.goto(url, {waitUntil: 'domcontentloaded'});
+   if (nth < 3 ){ //urls.length
+   await page1.goto(urls[nth], {waitUntil: 'domcontentloaded'});
    await page1.waitForSelector('#open-purchase-options-cta-VOD48h');
 
    const clBuy = await page1.evaluate((result) => {
@@ -95,18 +95,63 @@ async function go(url, count) {
    nth++;
    console.log('after ' + count);
 
-} else clearInterval();
+} else {
+  console.log('end of loop');
+  clearInterval(wait);
 }
+}*/
 
 function go2() {
-   return new Promise((resolve, reject) => {
-const wait = setInterval(go, 10000, href[nth], nth);
-})
+
+  let wait;
+
+  const go = async function go(urls, count) {
+   console.log(page1.title + "\r\n" + url +  "\r\n" + count + ' ' + nth);
+   if (nth < urls.length){
+   await page1.goto(urls[nth], {waitUntil: 'domcontentloaded'});
+   await page1.waitForSelector('#open-purchase-options-cta-VOD48h');
+
+   const clBuy = await page1.evaluate((result) => {
+   document.querySelector('#open-purchase-options-cta-VOD48h').click();
+   const hdPrice = document.querySelector('#HD-option-price').textContent;
+   return hdPrice;
+   });
+   console.log(clBuy);
+
+
+   console.log(92);
+   price.push(parseFloat(clBuy.replace(',','.')));
+   console.log(94);
+   console.log('before ' + count);
+   count++;
+   nth++;
+   console.log('after ' + count);
+
+
+} else {
+  console.log('end of loop');
+  //clearInterval(wait);
+  //console.log('interval cleared');
+
+}
 }
 
-await go2();
+     return new Promise((resolve, reject) => {
+wait = setInterval(go, 9000, href, nth);
+wait2 = setInterval(() => {
+  if (nth >= href.length) {
+    clearInterval(wait);
+    console.log('interval cleared');
+    clearInterval(wait2);
+    resolve();
+  } else console.log('nth=' + nth + ' is yet not >= ' + 3)
+}, 1000)
 
-  const srcs3 = price.map(function(a, i) {return a.toString().padEnd(6,' ') + " " + name[i]});
+})}
+
+await go2()
+
+      const srcs3 = price.map(function(a, i) {return a.toString().padEnd(6,' ') + " " + name[i]});
   console.log(srcs3.sort((a, b) => {
      if (a > b) {
      return 1;
@@ -138,7 +183,12 @@ await go2();
 
 
   browser.close();
-}
+
+  }
+
+
+
+
 
 
 
