@@ -7,29 +7,41 @@ puppeteer.use(StealthPlugin())
 
 async function scrapePrice(url) {
 
-const br = function() {
+function browser() {
    return new Promise((resolve, reject) => {
-   const br1 = puppeteer.launch({
-     //headless: false,
-     headless: false,
-     /*devtools: false,*/
-     //slowMo:300,
-     //devtools: true,
-     args: ['--no-sandbox', '--incognito']
-  })
+      const br1 = puppeteer.launch({
+      //headless: false,
+      headless: false,
+      /*devtools: false,*/
+      //slowMo:300,
+      //devtools: true,
+      args: ['--no-sandbox', '--incognito']
+      })
   resolve(br1);
 })}
 
-const browser = await br();
-
-console.log("browser loaded");
-const page = browser.newPage();
-console.log("tab opened");
-const page1 = await browser.newPage();
-console.log("tab opened");
-await page1.goto(url, {
-  waitUntil: 'networkidle2',
+const page2 = browser().then(result => {
+   console.log('browser loaded');
+   console.log(result);
+   const page = result.newPage();
+   resolve(page);
 });
+
+
+var page1 = page2.then((result) => {
+   console.log(result);
+   resolve(result);
+});
+
+
+page1.goto(url, {
+  waitUntil: 'networkidle2'
+});
+
+console.log(page1);
+
+
+
 console.log("page opened");
 
   await page1.waitForSelector('.all-wrapper-a');
