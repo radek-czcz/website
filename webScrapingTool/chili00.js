@@ -5,67 +5,72 @@ const request = require('request');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 puppeteer.use(StealthPlugin())
 
-function scrapePrice(url) {
-
-
+async function scrapePrice(url) {
 
    const browser =  puppeteer.launch({
       //headless: false,
       headless: false,
-      /*devtools: false,*/
+      //devtools: false,
       //slowMo:300,
       //devtools: true,
-      args: ['--no-sandbox', '--incognito']
-   })
+      args: ['--no-sandbox', '--incognito']}
+   )
 
+   console.log("browser loaded");
 
+   const page1 = browser
+      .then(result => result.newPage()
+   )
 
-const fpage = browser.then(result => {
-   return result.newPage();
-});
+   const page2 = page1
+      .then(result => result.goto(url, {waitUntil: 'networkidle2'})
+   )
 
+   var pAll = Promise.all([page2, page1])
+      .then(result => {
+         console.log('before wait');
+         result[1].waitForSelector('.all-wrapper-a');
+         console.log('end wait');
+         return result[1];
+      })
 
-const spage = fpage.then(result => {
-   return result.goto(url, {
-        waitUntil: 'domcontentloaded'}).waitForSelector('.all-wrapper-a').catch((e) => console.log(e));
-});
+   var fur = pAll.then(result => {
+      console.log('scrolling');
+      result.evaluate(() => new Promise((resolve, reject) => {
+      const sel = 'div.price-footer';
+      var movieCount = 0;
+      var scrollTop = -1;
+      const interval = setInterval(() => {
+         window.scrollBy(0, 10000);
+         if(document.documentElement.scrollTop !== scrollTop
+            && movieCount != Array.from(document.querySelectorAll(sel))
+            .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length){
+               scrollTop = document.documentElement.scrollTop;
+               movieCount = Array.from(document.querySelectorAll(sel))
+                  .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length;
+               return;
+         }
+         clearInterval(interval);
 
+      }, 300);
+         resolve();}
+      )
+   )})
 
+   function getHref(inp) {
+      const href = inp.map(inp => inp.href);
+      const name = inp.map(inp => inp.querySelector('div span.ellipsis-footer span span').textContent);
+      console.log([href, name]);
+      return [href, name];
+   }
 
-//const selectr = spage./*then(result => result.*/waitForSelector('.all-wrapper-a').catch((e) => console.log(e));
-
-var fur = spage.then(result => {
-   result.evaluate(() => {
-   const sel = 'div.price-footer';
-   var movieCount = 0;
-   var scrollTop = -1;
-   const interval = setInterval(() => {
-
-     window.scrollBy(0, 10000);
-     if(document.documentElement.scrollTop !== scrollTop && movieCount != Array.from(document.querySelectorAll(sel)).filter(inp => inp.textContent.toLowerCase().includes('6,90')).length){ //|| movieCount !== document.querySelectorAll(sel).filter(inp => inp.textContent.toLowerCase().includes('6,90')).length) {
-       scrollTop = document.documentElement.scrollTop;
-       movieCount = Array.from(document.querySelectorAll(sel)).filter(inp => inp.textContent.toLowerCase().includes('6,90')).length;
-       return;
-     }
-     clearInterval(interval);
-     resolve();
- }, 300);
-})})
-
-  /*function getHref(inp) {
-    const href = inp.map(inp => inp.href);
-    const name = inp.map(inp => inp.querySelector('div span.ellipsis-footer span span').textContent);
-    console.log([href, name]);
-    return [href, name];
-  }
-
-  const ev = page1.then(result => {
-     const geth = result.$$eval('.all-wrapper-a', getHref);
-     console.log(geth);
+  const ev = Promise.all([fur, page1]).then(result => {
+     console.log('getting elements');
+     const geth = result[1].$$eval('.all-wrapper-a', getHref);
      return geth;
-  });
+  }).then(result => console.log(result))
 
-
+/*
   const href = ev[0];
   const name = ev[1];
 
