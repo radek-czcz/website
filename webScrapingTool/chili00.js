@@ -35,27 +35,44 @@ async function scrapePrice(url) {
       })
 
    var fur = pAll.then(result => {
-      console.log('scrolling');
-      result.evaluate(() => new Promise((resolve, reject) => {
+
+      var fin = new Promise((resolve, reject) => {result.evaluate(() => {
       const sel = 'div.price-footer';
       var movieCount = 0;
       var scrollTop = -1;
-      const interval = setInterval(() => {
-         window.scrollBy(0, 10000);
-         if(document.documentElement.scrollTop !== scrollTop
-            && movieCount != Array.from(document.querySelectorAll(sel))
-            .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length){
-               scrollTop = document.documentElement.scrollTop;
-               movieCount = Array.from(document.querySelectorAll(sel))
-                  .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length;
-               return;
-         }
-         clearInterval(interval);
 
-      }, 300);
-         resolve();}
+
+         function innerInterval() {
+            interval = setInterval(innFunc, 300);
+            function innFunc() {
+               window.scrollBy(0, 10000);
+               if(
+                  document.documentElement.scrollTop !== scrollTop
+                  && movieCount != Array.from(document.querySelectorAll(sel))
+                  .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length)
+               {
+                  scrollTop = document.documentElement.scrollTop;
+                  movieCount = Array.from(document.querySelectorAll(sel))
+                  .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length;
+                  return;
+               }
+               clearInterval(interval);
+            }
+         }
+
+         innerInterval();
+
+
+         }
       )
-   )})
+      resolve();
+   }
+      )
+
+
+
+   //return fin;
+})
 
    function getHref(inp) {
       const href = inp.map(inp => inp.href);
@@ -65,6 +82,7 @@ async function scrapePrice(url) {
    }
 
   const ev = Promise.all([fur, page1]).then(result => {
+     console.log(result);
      console.log('getting elements');
      const geth = result[1].$$eval('.all-wrapper-a', getHref);
      return geth;
