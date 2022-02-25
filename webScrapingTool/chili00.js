@@ -7,6 +7,8 @@ puppeteer.use(StealthPlugin())
 
 async function scrapePrice(url) {
 
+   var browserToClose;
+
    const browser =  puppeteer.launch({
       //headless: false,
       headless: false,
@@ -19,8 +21,11 @@ async function scrapePrice(url) {
    console.log("browser loaded");
 
    const page1 = browser
-      .then(result => result.newPage()
+      .then(result => {
+      browserToClose = result;
+      return result.newPage();}
    )
+
 let name;
 let price = [];
 var tabToUse;
@@ -49,6 +54,7 @@ var tabToUse;
          var movieCount = 0;
          var scrollTop = -1;
          let interval;
+         var allMoviesFrames;
 
                   function innerInterval() {return new Promise((resolve) => {
                      interval = setInterval(innFunc, 700);
@@ -56,6 +62,8 @@ var tabToUse;
 
                         function innFunc(inp) {
                            window.scrollBy(0, 10000);
+                           allMoviesFrames = Array.from(document.querySelectorAll(sel))
+                           .filter(inp => inp.textContent.toLowerCase().includes('6,90'));
                            console.log('scrollTop: ' + document.documentElement.scrollTop + "\r\n", 'local var scrollTop: ' + scrollTop + "\r\n" , 'movieCount: ' + movieCount  + "\r\n", 'current movieCount: ' + Array.from(document.querySelectorAll(sel)).filter(inp => inp.textContent.toLowerCase().includes('6,90')).length  + "\r\n" + "\r\n")
                            if(
                               document.documentElement.scrollTop !== scrollTop
@@ -70,7 +78,7 @@ var tabToUse;
 
                            console.log('cleraing interval and resolve');
                            clearInterval(interval);
-                           resolve();
+                           resolve(allMoviesFrames.map(inp => inp.textContent));
                         }
 
                   })}
@@ -78,11 +86,13 @@ var tabToUse;
          var inInt = innerInterval();
          var res = inInt.then((result) => {
             console.log('after inner interval');
+            console.log(result);
          })
          return inInt;
             }
          )
 
+         evl.then(result => console.log('evl ' + result.length))
          console.log("outer resolve");
          return evl;
    //}
@@ -90,18 +100,27 @@ var tabToUse;
 
 })
 
-   function getHref(inp) {
-      const href = inp.map(inp => inp.href);
-      const name = inp.map(inp => inp.querySelector('div span.ellipsis-footer span span').textContent);
-      console.log([href, name]);
-      return [href, name];
-   }
+
 
   const ev = Promise.all([fur, page1]).then(result => {
-     console.log(result);
+
+     function getHref(inp) {
+       const href = inp.map(inp => inp.href);
+       const name = inp.map(inp => inp.querySelector('div span.ellipsis-footer span span').textContent);
+       console.log([href, name]);
+       return [href, name];
+    }
+
      console.log('getting elements');
-     const geth = result[1].$$eval('.all-wrapper-a', getHref);
-     return geth;
+     let geth = result[1].$$eval('.all-wrapper-a', getHref);
+
+     const newRes = geth.then(result1 => {
+        console.log(result1);
+        result1[2] = result[0];
+        return result1;
+     });
+
+     return newRes.then(result => result);
   })
 
 
@@ -144,11 +163,12 @@ const ev2 = ev.then(result => {
 
 
       nth = 1;
-
+      //var counter = result[2].length;
+      var counter = 5;
 
       async function go(urls, count) {
             console.log("\r\n" + url +  "\r\n" + count + ' ' + nth);
-            if (nth < urls.length){
+            if (nth < counter){
                await tabToUse.goto(urls[nth], {waitUntil: 'domcontentloaded'});
                await tabToUse.waitForSelector('#open-purchase-options-cta-VOD48h');
 
@@ -168,14 +188,14 @@ const ev2 = ev.then(result => {
 
 
       let wait;
-      wait = setInterval(go, 9000, inp, nth);
+      wait = setInterval(go, 7000, inp, nth);
       wait2 = setInterval(() => {
-         if (nth >= result[1].length) {
+         if (nth >= counter) {
             clearInterval(wait);
             console.log('interval cleared');
             clearInterval(wait2);
             resolve();
-         } else console.log('nth=' + nth + ' is yet not >= ' + result[1].length)
+         } else console.log('nth=' + nth + ' is yet not >= ' + counter)
       }, 1000)
 
    })}
@@ -187,7 +207,7 @@ return going(result[0]);
 
 ev2.then(result => {
    const srcs3 = price.map(function(a, i) {return a.toString().padEnd(6,' ') + " " + name[i]});
-console.log("sorted: " + "\r\n" + srcs3.sort((a, b) => {
+console.log(srcs3.sort((a, b) => {
  if (a > b) {
  return 1;
 }
@@ -195,6 +215,7 @@ console.log("sorted: " + "\r\n" + srcs3.sort((a, b) => {
      return -1;
  }
 }));
+  browserToClose.close();
 })
 
 
@@ -207,7 +228,7 @@ console.log("sorted: " + "\r\n" + srcs3.sort((a, b) => {
 
 
 
-  //browser().close();
+
 
   }
 

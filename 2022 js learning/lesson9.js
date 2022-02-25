@@ -11,7 +11,7 @@ function testAsync(){
 
 async function callerFun(){
     console.log("Caller");
-    testAsync();
+    await testAsync();
     console.log("After waiting");
 }
 

@@ -1,5 +1,5 @@
 const request = new XMLHttpRequest();
-request.open('GET', 'https://imdb-api.com/en/API/SearchMovie/k_jxpq0txa/back to the future'
+request.open('GET', 'https://imdb-api.com/en/API/SearchMovie/k_jxpq0txa/Bergman Island'
 /*'https://imdb-api.com/en/API/Title/k_jxpq0txa/tt0110413'*/);
 request.setRequestHeader('X-AUTH-TOKEN','k_jxpqOtxa')
 request.send();
