@@ -15,148 +15,109 @@ async function scrapePrice(url) {
       //devtools: false,
       //slowMo:300,
       devtools: true,
-      args: ['--no-sandbox', '--incognito']}
+      args: ['--no-sandbox', '--incognito']
+      }
    )
 
-   console.log("browser loaded");
-
-   const page1 = browser
-      .then(result => {
+   const page = browser.then(result => {
+      console.log("browser loaded");
       browserToClose = result;
-      return result.newPage();}
+      return result.newPage();
+      }
    )
 
-let name;
-let price = [];
-var tabToUse;
+   let name;
+   let price = [];
+   var tabToUse;
 
-   const page2 = page1
-      .then(result => {
+   const pageGoTo = page.then(result => {
       tabToUse = result;
       return result.goto(url, {waitUntil: 'networkidle2'});
-   })
+      }
+   )
 
+   var selectorWait = Promise.all([pageGoTo, page]).then(result => {
+      console.log('before wait');
+      result[1].waitForSelector('.all-wrapper-a');
+      console.log('end wait');
+      return result[1];
+      }
+   )
 
-   var pAll = Promise.all([page2, page1])
-      .then(result => {
-         console.log('before wait');
-         result[1].waitForSelector('.all-wrapper-a');
-         console.log('end wait');
-         return result[1];
-      })
+   var prices = selectorWait.then(result => {
 
-   var fur = pAll.then(result => {
-
-      //return new Promise((resolve, reject) => {
-      var evl;
-      evl = result.evaluate(() => {
+      var pricesArray;
+      pricesArray = result.evaluate(() => {
          const sel = 'div.price-footer';
          var movieCount = 0;
          var scrollTop = -1;
          let interval;
-         var allMoviesFrames;
+         var allMoviesPrices;
 
-                  function innerInterval() {return new Promise((resolve) => {
-                     interval = setInterval(innFunc, 700);
-                     console.log(interval);
+         function insidePrices() {return new Promise((resolve) => {
+            interval = setInterval(scrollFuncAndPrice, 700);
+            //console.log(interval);
 
-                        function innFunc(inp) {
-                           window.scrollBy(0, 10000);
-                           allMoviesFrames = Array.from(document.querySelectorAll(sel))
-                           .filter(inp => inp.textContent.toLowerCase().includes('6,90'));
-                           console.log('scrollTop: ' + document.documentElement.scrollTop + "\r\n", 'local var scrollTop: ' + scrollTop + "\r\n" , 'movieCount: ' + movieCount  + "\r\n", 'current movieCount: ' + Array.from(document.querySelectorAll(sel)).filter(inp => inp.textContent.toLowerCase().includes('6,90')).length  + "\r\n" + "\r\n")
-                           if(
-                              document.documentElement.scrollTop !== scrollTop
-                              && movieCount != Array.from(document.querySelectorAll(sel))
-                              .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length)
-                           {
-                              scrollTop = document.documentElement.scrollTop;
-                              movieCount = Array.from(document.querySelectorAll(sel))
-                              .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length;
-                              return;
-                           }
+            function scrollFuncAndPrice(inp) {
+               window.scrollBy(0, 10000);
+               allMoviesPrices = Array.from(document.querySelectorAll(sel))
+               .filter(inp => inp.textContent.toLowerCase().includes('6,90'));
+               //console.log('scrollTop: ' + document.documentElement.scrollTop + "\r\n", 'local var scrollTop: ' + scrollTop + "\r\n" , 'movieCount: ' + movieCount  + "\r\n", 'current movieCount: ' + Array.from(document.querySelectorAll(sel)).filter(inp => inp.textContent.toLowerCase().includes('6,90')).length  + "\r\n" + "\r\n")
+               if(
+                  document.documentElement.scrollTop !== scrollTop
+                  && movieCount != Array.from(document.querySelectorAll(sel))
+                  .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length
+               ){
+                  scrollTop = document.documentElement.scrollTop;
+                  movieCount = Array.from(document.querySelectorAll(sel))
+                  .filter(inp => inp.textContent.toLowerCase().includes('6,90')).length;
+                  return;
+               }
 
-                           console.log('cleraing interval and resolve');
-                           clearInterval(interval);
-                           resolve(allMoviesFrames.map(inp => inp.textContent));
-                        }
+               console.log('cleraing interval and resolve');
+               clearInterval(interval);
+               resolve(allMoviesPrices.map(inp => inp.textContent));
+            }
+         })}
 
-                  })}
-
-         var inInt = innerInterval();
+         var inInt = insidePrices();
          var res = inInt.then((result) => {
-            console.log('after inner interval');
-            console.log(result);
+            //console.log('after inner interval');
+            //console.log(result);
          })
          return inInt;
-            }
-         )
+      })
 
-         evl.then(result => console.log('evl ' + result.length))
+         pricesArray.then(result => console.log('pricesArray ' + result.length));
          console.log("outer resolve");
-         return evl;
-   //}
-      //)
-
-})
+         return pricesArray;
+   })
 
 
 
-  const ev = Promise.all([fur, page1]).then(result => {
+  const urlsAndNamesAndPrices = Promise.all([prices, page]).then(result => {
 
      function getHref(inp) {
        const href = inp.map(inp => inp.href);
        const name = inp.map(inp => inp.querySelector('div span.ellipsis-footer span span').textContent);
        console.log([href, name]);
        return [href, name];
-    }
+      }
 
      console.log('getting elements');
-     let geth = result[1].$$eval('.all-wrapper-a', getHref);
+     let getNamesAndUrls = result[1].$$eval('.all-wrapper-a', getHref);
 
-     const newRes = geth.then(result1 => {
+     const namUrPr = getNamesAndUrls.then(result1 => {
         console.log(result1);
         result1[2] = result[0];
         return result1;
      });
 
-     return newRes.then(result => result);
+     return namUrPr.then(result => result);
   })
 
 
-/*
-  const href = ev[0];
-  const name = ev[1];
-
-
-  nth = 1;
-
-  let wait;
-
-
-
-  function going() {return new Promise((resolve, reject) => {
-     const href = result[0];
-     const name = result[1];
-
-     let price = [];
-     nth = 1;
-
-     let wait;
-     wait = setInterval(go, 9000, href, nth);
-     wait2 = setInterval(() => {
-        if (nth >= href.length) {
-           clearInterval(wait);
-           console.log('interval cleared');
-           clearInterval(wait2);
-           resolve();
-        } else console.log('nth=' + nth + ' is yet not >= ' + 3)
-     }, 1000)
-  })}*/
-
-
-
-const ev2 = ev.then(result => {
+const ev2 = urlsAndNamesAndPrices.then(result => {
 
 
    function going(inp) {return new Promise((resolve, reject) => {
@@ -173,9 +134,11 @@ const ev2 = ev.then(result => {
                await tabToUse.waitForSelector('#open-purchase-options-cta-VOD48h');
 
                const clBuy = await tabToUse.evaluate((result) => {
-               document.querySelector('#open-purchase-options-cta-VOD48h').click();
-               const hdPrice = document.querySelector('#HD-option-price').textContent;
-               return hdPrice;
+               return new Promise((resolve, reject) => {
+                  setTimeout(() => {document.querySelector('#open-purchase-options-cta-VOD48h').click();
+                  resolve()}, 1200);
+               }).then(() => document.querySelector('#HD-option-price').textContent).catch(e => console.log(e));
+
                });
                console.log(clBuy);
                price.push(parseFloat(clBuy.replace(',','.')));
@@ -197,8 +160,8 @@ const ev2 = ev.then(result => {
             resolve();
          } else console.log('nth=' + nth + ' is yet not >= ' + counter)
       }, 1000)
-
-   })}
+   }
+)}
 
 name = result[1];
 return going(result[0]);
@@ -217,18 +180,6 @@ console.log(srcs3.sort((a, b) => {
 }));
   browserToClose.close();
 })
-
-
-
-
-
-  //console.log('all pages opened')
-
-  //console.log('all pages closed');
-
-
-
-
 
   }
 
