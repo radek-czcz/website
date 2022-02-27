@@ -124,8 +124,9 @@ const ev2 = urlsAndNamesAndPrices.then(result => {
 
 
       nth = 1;
-      //var counter = result[2].length;
-      var counter = 5;
+      var counter = result[2].length;
+      //var counter = 5;
+      let sec = 1;
 
       async function go(urls, count) {
             console.log("\r\n" + url +  "\r\n" + count + ' ' + nth);
@@ -140,10 +141,11 @@ const ev2 = urlsAndNamesAndPrices.then(result => {
                }).then(() => document.querySelector('#HD-option-price').textContent).catch(e => console.log(e));
 
                });
-               console.log(clBuy);
+               //console.log(clBuy);
                price.push(parseFloat(clBuy.replace(',','.')));
                count++;
                nth++;
+               sec = 1;
          } else {
               console.log('end of loop');
            }
@@ -151,6 +153,7 @@ const ev2 = urlsAndNamesAndPrices.then(result => {
 
 
       let wait;
+
       wait = setInterval(go, 7000, inp, nth);
       wait2 = setInterval(() => {
          if (nth >= counter) {
@@ -158,7 +161,8 @@ const ev2 = urlsAndNamesAndPrices.then(result => {
             console.log('interval cleared');
             clearInterval(wait2);
             resolve();
-         } else console.log('nth=' + nth + ' is yet not >= ' + counter)
+         } else {console.log(sec);
+         sec++;}
       }, 1000)
    }
 )}
