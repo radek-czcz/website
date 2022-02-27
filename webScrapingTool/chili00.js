@@ -131,21 +131,35 @@ const ev2 = urlsAndNamesAndPrices.then(result => {
       async function go(urls, count) {
             console.log("\r\n" + url +  "\r\n" + count + ' ' + nth);
             if (nth < counter){
-               await tabToUse.goto(urls[nth], {waitUntil: 'domcontentloaded'});
-               await tabToUse.waitForSelector('#open-purchase-options-cta-VOD48h');
+               const gt = tabToUse.goto(urls[nth], {waitUntil: 'domcontentloaded'});
+               const wt = gt.then(() => tabToUse.waitForSelector('#open-purchase-options-cta-VOD48h'));
 
-               const clBuy = await tabToUse.evaluate((result) => {
-               return new Promise((resolve, reject) => {
-                  setTimeout(() => {document.querySelector('#open-purchase-options-cta-VOD48h').click();
-                  resolve()}, 1200);
-               }).then(() => document.querySelector('#HD-option-price').textContent).catch(e => console.log(e));
+               function myClick(){return new Promise((resolve, reject) => {
+                  tabToUse.evaluate(() => {console.log('clicking');                                                                                                                                                                                  
+                                    setTimeout(() => {document.querySelector('#open-purchase-options-cta-VOD48h').click();
+                                       resolve()}, 1200);}
+               )})}
 
-               });
+               function select() {
+                  console.log('selecting');  
+                  return tabToUse.$eval('#HD-option-price', inp => inp.textContent);
+               }
+
+               const clBuy = wt.then(() => myClick());
+               const sele = clBuy.then(() => tabToUse.$('#HD-option-price'));
+               sele.then(result => console.log(result.textContent));
+               /*.then(() => select()).catch(e => console.log(e));
+
+
                //console.log(clBuy);
-               price.push(parseFloat(clBuy.replace(',','.')));
-               count++;
-               nth++;
-               sec = 1;
+               clBuy.then(result => {cl
+                  price.push(parseFloat(result.replace(',','.')));
+                  count++;
+                  nth++;
+                  sec = 1;
+               });
+
+               clBuy.then(() => setTimeout(go, 7000, inp, nth));*/
          } else {
               console.log('end of loop');
            }
@@ -154,7 +168,7 @@ const ev2 = urlsAndNamesAndPrices.then(result => {
 
       let wait;
 
-      wait = setInterval(go, 7000, inp, nth);
+      wait = setTimeout(go, 7000, inp, nth);
       wait2 = setInterval(() => {
          if (nth >= counter) {
             clearInterval(wait);
