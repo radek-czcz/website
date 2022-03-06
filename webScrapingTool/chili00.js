@@ -130,36 +130,41 @@ const ev2 = urlsAndNamesAndPrices.then(result => {
 
       async function go(urls, count) {
             console.log("\r\n" + url +  "\r\n" + count + ' ' + nth);
+            console.log('there are ' + (counter - nth) + ' pages left to visit');
             if (nth < counter){
                const gt = tabToUse.goto(urls[nth], {waitUntil: 'domcontentloaded'});
                const wt = gt.then(() => tabToUse.waitForSelector('#open-purchase-options-cta-VOD48h'));
 
                function myClick(){return new Promise((resolve, reject) => {
-                  tabToUse.evaluate(() => {console.log('clicking');                                                                                                                                                                                  
+                  tabToUse.evaluate(() => {console.log('clicking');
                                     setTimeout(() => {document.querySelector('#open-purchase-options-cta-VOD48h').click();
-                                       resolve()}, 1200);}
-               )})}
+                                 /*resolve()*/}, 1200);}
+               ).then(() => {resolve();
+               console.log('click resolved')})
+            })}
 
                function select() {
-                  console.log('selecting');  
-                  return tabToUse.$eval('#HD-option-price', inp => inp.textContent);
+                  console.log('selecting');
+                  return tabToUse.$eval("#HD-option-price", inp => inp.textContent);
                }
 
                const clBuy = wt.then(() => myClick());
-               const sele = clBuy.then(() => tabToUse.$('#HD-option-price'));
-               sele.then(result => console.log(result.textContent));
-               /*.then(() => select()).catch(e => console.log(e));
+               const sele = clBuy.then(() => {
+                  console.log('waiting');
+                  return tabToUse.waitForSelector("#HD-option-price");
+               });
+               const priceRec = sele.then(result => select());
+               /*.then(() => select()).catch(e => console.log(e));*/
 
-
-               //console.log(clBuy);
-               clBuy.then(result => {cl
+               priceRec.then(result => {
                   price.push(parseFloat(result.replace(',','.')));
+                  console.log('price ' + result.replace(',','.') + ' added to results' );
                   count++;
                   nth++;
                   sec = 1;
                });
 
-               clBuy.then(() => setTimeout(go, 7000, inp, nth));*/
+               clBuy.then(() => setTimeout(go, 7000, inp, nth));
          } else {
               console.log('end of loop');
            }
