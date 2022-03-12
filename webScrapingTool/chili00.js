@@ -19,6 +19,8 @@ async function scrapePrice(url) {
       }
    )
 
+   try {
+
    const page = browser.then(result => {
       console.log("browser loaded");
       browserToClose = result;
@@ -203,7 +205,9 @@ console.log(srcs3.sort((a, b) => {
 }));
   browserToClose.close();
 })
-
+} catch (e) {
+   console.log('closing browser');
+   browser.close();}
   }
 
 scrapePrice('https://pl.chili.com/showcase/premiery/2f66e28a-cdbc-48ab-87e6-8da6fb9161b8?orderBy=PRICE_ASC');

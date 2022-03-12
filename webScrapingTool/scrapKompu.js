@@ -43,10 +43,10 @@ async function scrapePrice(url){
 
 // SELECTORS' STRINGS
       var str = [
-      'div.list-items',
-      'div.offer-box',
-      'a.is-animate.spark-link',
-      'div.main-price.is-big span.whole'
+      'product-entry2',
+      '.pe2-head .blank-link.at-product-name-0',
+      '',
+      ''
       ]
 
 //FILTERS' STRINGS
@@ -57,13 +57,20 @@ async function scrapePrice(url){
 
 
 // ALL PRODUCT FRAMES
-      productBoxes = Array.from(document.querySelectorAll(str[0] + ' ' + str[1]))
+      const productBoxes = Array.from(document.querySelectorAll(str[0]));
+      console.log(productBoxes);
+
+
+
+      //productBoxes = Array.from(document.querySelectorAll(str[0] + ' ' + str[1]))
 // FILTERED (MANUFACTURER) ALL PRODUCT FRAMES
          //.filter(inp => inp.textContent.toLowerCase().includes(filterString[0]))
 // FILTERED (ONLY AVALIBLE TO BUY) ALL PRODUCT FRAMES - falsy expr: !inp.querySelector('.icon-box-bold')
-         .filter(inp => !inp.querySelector(filterString[1]));
+         //.filter(inp => !inp.querySelector(filterString[1]));
 // MAPPED (TO PRODUCTS NAMES UNTRIMMED)
-      const namesUntrimmed = productBoxes.map(inp => inp.querySelector(str[2]));
+      const namesUntrimmed = productBoxes.map(inp => inp.querySelector(str[1]));
+      console.log(namesUntrimmed);  /*
+
 // UNTRIMMED PRODUCT'S NAMES
       const names = namesUntrimmed.map(inp => inp.textContent);
 //PRICE EXTRACT
@@ -119,7 +126,8 @@ await fs.appendFile('mediaExpertDataFile.txt', date.getTime() + "\r\n", () => ap
 
 await page.close();
 await browser.close();
+
 }
 
 module.exports = {scrapePrice};
-scrapePrice('https://www.mediaexpert.pl/agd-male/do-kuchni/czajniki/zelmer.tefal.kenwood.bosch.goetze-jensen.electrolux.russell-hobbs/pojemnosc-l_od-1-55-do-1-99.od-2?limit=12&sort=price_asc&page=1')
+scrapePrice('https://www.komputronik.pl/category/16831/adaptery-bluetooth.html?prod%5B%5D=16&prod%5B%5D=234&filter=1&sort=1&by=f_price_10&showBuyActiveOnly=1')
