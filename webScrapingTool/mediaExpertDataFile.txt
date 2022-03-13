@@ -358,3 +358,23 @@ undefined
   89 Czajnik ZELMER ZCK7620S
   99 Czajnik GÖTZE & JENSEN KT050E Biały 2200W pojemność 1,7L filtr
  104 Czajnik BOSCH TWK 7601
+1647117211455
+  17 Karta pamięci KIOXIA Exceria microSDHC 16GB
+  21 Karta pamięci KIOXIA Exceria microSDHC 32GB
+  24 Karta pamięci KIOXIA Exceria SDHC 16GB
+  37 Karta pamięci KIOXIA Exceria SDHC 32GB
+  57 Karta pamięci KIOXIA Exceria Plus microSDHC 32GB
+  65 Karta pamięci KIOXIA Exceria High Endurance microSDHC 32GB
+1647117220809
+  84 Czajnik BOSCH TWK 3A013
+  89 Czajnik ZELMER ZCK7620G
+  89 Czajnik ZELMER ZCK7617W
+  89 Czajnik BOSCH TWK 3A017
+  99 Czajnik ZELMER ZCK7620S
+  99 Czajnik GÖTZE & JENSEN KT050E Biały 2200W pojemność 1,7L filtr
+  99 Czajnik BOSCH TWK7604
+ 104 Czajnik BOSCH TWK 7601
+ 109 Czajnik BOSCH TWK 3A011
+ 109 Czajnik ZELMER ZCK8024
+ 119 Czajnik BOSCH TWK7603
+ 119 Czajnik GÖTZE & JENSEN KT401K Czarny 2200W pojemność 1,7L filtr antywapienny
