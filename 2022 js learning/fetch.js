@@ -1,4 +1,4 @@
-//const fetch = require('node-fetch');
+const fetch = import('node-fetch');
 const text = fetch('abc.txt')
 .then(result => {
   return result.text();

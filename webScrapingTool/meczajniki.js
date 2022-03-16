@@ -9,7 +9,7 @@ puppeteer.use(StealthPlugin())
 async function scrapePrice(url){
 
   const browser = await puppeteer.launch({
-      headless: false,
+      //headless: false,
       args: ['--no-sandbox', '--incognito'],
       /*devtools: false,*/
       slowMo:300
@@ -122,4 +122,3 @@ await browser.close();
 }
 
 module.exports = {scrapePrice};
-scrapePrice('https://www.mediaexpert.pl/agd-male/do-kuchni/czajniki/zelmer.tefal.kenwood.bosch.goetze-jensen.electrolux.russell-hobbs/pojemnosc-l_od-1-55-do-1-99.od-2?limit=12&sort=price_asc&page=1')

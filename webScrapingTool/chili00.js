@@ -140,7 +140,7 @@ const ev2 = urlsAndNamesAndPrices.then(result => {
                function myClick(){return new Promise((resolve, reject) => {
                   tabToUse.evaluate(() => {console.log('clicking');
                                     setTimeout(() => {document.querySelector('#open-purchase-options-cta-VOD48h').click();
-                                 /*resolve()*/}, 1200);}
+                                 /*resolve()*/}, 2200);}
                ).then(() => {resolve();
                console.log('click resolved')})
             })}
@@ -166,7 +166,7 @@ const ev2 = urlsAndNamesAndPrices.then(result => {
                   sec = 1;
                });
 
-               clBuy.then(() => setTimeout(go, 7000, inp, nth));
+               clBuy.then(() => setTimeout(go, 4000, inp, nth));
          } else {
               console.log('end of loop');
            }
