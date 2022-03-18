@@ -13,7 +13,7 @@ function scrapePriceKomputronik(url){
 
 // LOAD BROWSER
   const browser = puppeteer.launch({
-      headless: false,
+      //headless: false,
       args: ['--no-sandbox', '--incognito'],
       devtools: true,
       //slowMo:300
@@ -117,4 +117,4 @@ function scrapePriceKomputronik(url){
 }
 
 module.exports = {scrapePriceKomputronik};
-scrapePriceKomputronik('https://www.komputronik.pl/category/16831/adaptery-bluetooth.html');
+//scrapePriceKomputronik('https://www.komputronik.pl/category/16831/adaptery-bluetooth.html');

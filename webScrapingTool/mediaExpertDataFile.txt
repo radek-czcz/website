@@ -489,3 +489,132 @@ undefined
 58.99  Edimax BT-8500
 74.99  ASUS USB-BT500
 92.90  Edimax EW-7611UCB
+1647541347112
+18.90  UGO Bluetooth
+20.90  Gembird Bluetooth
+32.90  TP-Link UB400
+39.90  LogiLink Bluetooth BT0015
+46.90  TP-Link UB500
+49.90  LogiLink Bluetooth BT0037
+57.90  ASUS USB-BT400
+57.90  Edimax EW-7611ULB
+58.99  Edimax BT-8500
+74.99  ASUS USB-BT500
+92.90  Edimax EW-7611UCB
+1647541371727
+18.90  UGO Bluetooth
+20.90  Gembird Bluetooth
+32.90  TP-Link UB400
+39.90  LogiLink Bluetooth BT0015
+46.90  TP-Link UB500
+49.90  LogiLink Bluetooth BT0037
+57.90  ASUS USB-BT400
+57.90  Edimax EW-7611ULB
+58.99  Edimax BT-8500
+74.99  ASUS USB-BT500
+92.90  Edimax EW-7611UCB
+1647541396630
+1647541396665
+  18 Karta pamięci KIOXIA Exceria microSDHC 16GB
+  15 Szczoteczka rotacyjna ORAL-B D4 Kids Star Wars
+  20 Karta pamięci KIOXIA Exceria microSDHC 32GB
+  40 Szczoteczka rotacyjna ORAL-B D2 Kids Princess
+  24 Karta pamięci KIOXIA Exceria SDHC 16GB
+  49 Szczoteczka rotacyjna ORAL-B D2 Kids Cars
+  36 Karta pamięci KIOXIA Exceria SDHC 32GB
+  49 Szczoteczka rotacyjna ORAL-B Kids D12 Star Wars
+  57 Karta pamięci KIOXIA Exceria Plus microSDHC 32GB
+  59 Szczoteczka rotacyjna ORAL-B D12 Kids Star Wars + Pasta do zębów
+  65 Karta pamięci KIOXIA Exceria High Endurance microSDHC 32GB
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Frozen + Piórnik
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Cars
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Star Wars + Etui
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Star Wars + Piórnik
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Frozen
+  75 Szczoteczka rotacyjna ORAL-B D100 Toy Story
+  89 Szczoteczka rotacyjna ORAL-B Kids Kraina Lodu
+  89 Szczoteczka rotacyjna ORAL-B Kids Gwiezdne Wojny
+  89 Szczoteczka rotacyjna ORAL-B D100 Gwiezdne Wojny + Etui
+  89 Szczoteczka rotacyjna ORAL-B Kids D100 Mickey
+  99 Szczoteczka rotacyjna ORAL-B D100 Vitality Frozen + Etui
+  99 Szczoteczka rotacyjna ORAL-B D100 Kids Star Wars + Etui
+  99 Szczoteczka rotacyjna ORAL-B D100 Kids Pixar + Etui Podróżne
+  99 Szczoteczka rotacyjna ORAL-B D100 Kids Spiderman
+ 128 Szczoteczka rotacyjna ORAL-B D100 Kids Frozen II + Etui
+ 129 Szczoteczka rotacyjna ORAL-B D100 Cross Action + D100K Star Wars
+ 179 Szczoteczka rotacyjna ORAL-B PRO 500 + D100 Kids Star Wars
+ 179 Szczoteczka rotacyjna ORAL-B D16 Junior Sens
+ 189 Szczoteczka soniczna PHILIPS Sonicare For Kids HX6322/04
+ 194 Szczoteczka soniczna PHILIPS Sonicare For Kids HX6352/42
+ 244 Szczoteczka rotacyjna ORAL-B Pro 3 Kids Junior Star Wars
+ 306 Szczoteczka rotacyjna ORAL-B D16 Teen White
+1647603617752
+18.90  UGO Bluetooth
+20.90  Gembird Bluetooth
+32.90  TP-Link UB400
+39.90  LogiLink Bluetooth BT0015
+46.90  TP-Link UB500
+49.90  LogiLink Bluetooth BT0037
+57.90  Edimax EW-7611ULB
+58.90  ASUS USB-BT400
+58.99  Edimax BT-8500
+74.99  ASUS USB-BT500
+92.90  Edimax EW-7611UCB
+1647603634009
+  15 Szczoteczka rotacyjna ORAL-B D4 Kids Star Wars
+  40 Szczoteczka rotacyjna ORAL-B D2 Kids Princess
+  49 Szczoteczka rotacyjna ORAL-B D2 Kids Cars
+  49 Szczoteczka rotacyjna ORAL-B Kids D12 Star Wars
+  59 Szczoteczka rotacyjna ORAL-B D12 Kids Star Wars + Pasta do zębów
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Frozen + Piórnik
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Star Wars + Etui
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Cars
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Star Wars + Piórnik
+  69 Szczoteczka rotacyjna ORAL-B Kids D12 Frozen
+  75 Szczoteczka rotacyjna ORAL-B D100 Toy Story
+  89 Szczoteczka rotacyjna ORAL-B Kids Kraina Lodu
+  89 Szczoteczka rotacyjna ORAL-B D100 Gwiezdne Wojny + Etui
+  89 Szczoteczka rotacyjna ORAL-B Kids Gwiezdne Wojny
+  89 Szczoteczka rotacyjna ORAL-B Kids D100 Mickey
+  99 Szczoteczka rotacyjna ORAL-B D100 Kids Star Wars + Etui
+  99 Szczoteczka rotacyjna ORAL-B D100 Vitality Frozen + Etui
+  99 Szczoteczka rotacyjna ORAL-B D100 Kids Spiderman
+ 128 Szczoteczka rotacyjna ORAL-B D100 Kids Frozen II + Etui
+ 129 Szczoteczka rotacyjna ORAL-B D100 Kids Pixar + Etui Podróżne
+ 129 Szczoteczka rotacyjna ORAL-B D100 Cross Action + D100K Star Wars
+ 179 Szczoteczka rotacyjna ORAL-B PRO 500 + D100 Kids Star Wars
+ 179 Szczoteczka rotacyjna ORAL-B D16 Junior Sens
+ 189 Szczoteczka soniczna PHILIPS Sonicare For Kids HX6322/04
+ 194 Szczoteczka soniczna PHILIPS Sonicare For Kids HX6352/42
+ 244 Szczoteczka rotacyjna ORAL-B Pro 3 Kids Junior Star Wars
+ 306 Szczoteczka rotacyjna ORAL-B D16 Teen White
+1647603746243
+18.90  UGO Bluetooth
+20.90  Gembird Bluetooth
+32.90  TP-Link UB400
+39.90  LogiLink Bluetooth BT0015
+46.90  TP-Link UB500
+49.90  LogiLink Bluetooth BT0037
+57.90  Edimax EW-7611ULB
+58.90  ASUS USB-BT400
+58.99  Edimax BT-8500
+74.99  ASUS USB-BT500
+92.90  Edimax EW-7611UCB
+1647603852951
+18.90  UGO Bluetooth
+20.90  Gembird Bluetooth
+32.90  TP-Link UB400
+39.90  LogiLink Bluetooth BT0015
+46.90  TP-Link UB500
+49.90  LogiLink Bluetooth BT0037
+57.90  Edimax EW-7611ULB
+58.90  ASUS USB-BT400
+58.99  Edimax BT-8500
+74.99  ASUS USB-BT500
+92.90  Edimax EW-7611UCB
+1647603932849
+  18 Karta pamięci KIOXIA Exceria microSDHC 16GB
+  20 Karta pamięci KIOXIA Exceria microSDHC 32GB
+  24 Karta pamięci KIOXIA Exceria SDHC 16GB
+  36 Karta pamięci KIOXIA Exceria SDHC 32GB
+  57 Karta pamięci KIOXIA Exceria Plus microSDHC 32GB
