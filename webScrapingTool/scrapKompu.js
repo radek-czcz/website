@@ -13,9 +13,9 @@ function scrapePriceKomputronik(url){
 
 // LOAD BROWSER
   const browser = puppeteer.launch({
-      //headless: false,
+      headless: true,
       args: ['--no-sandbox', '--incognito'],
-      devtools: true,
+      //devtools: true,
       //slowMo:300
       //args: ['--no-sandbox', '--incognito']
    });
