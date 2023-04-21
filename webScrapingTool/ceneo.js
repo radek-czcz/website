@@ -1,4 +1,6 @@
 
+// strzyżarki w CENEO
+
 const puppeteer = require('puppeteer-extra')
 const fs = require('fs');
 const request = require('request');

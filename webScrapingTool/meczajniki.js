@@ -1,7 +1,7 @@
 
 const fs = require('fs');
 const puppeteer = require('puppeteer-extra');
-const request = require('request');
+
 
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 puppeteer.use(StealthPlugin())
@@ -99,12 +99,12 @@ async function scrapePrice(url){
 ));
 
 //for (i = 0;  i<dataExtract.length; i++) {
-function append(arrayOfStrings) {
-console.log('before append ' + dataExtract[arrayOfStrings]);
-fs.appendFile('mediaExpertDataFile.txt', dataExtract[arrayOfStrings] + "\r\n", () => {
-console.log('after append ' + dataExtract[arrayOfStrings])
-if (++arrayOfStrings < dataExtract.length)
-append(arrayOfStrings);
+function append(counter) {
+console.log('before append ' + dataExtract[counter]);
+fs.appendFile('mediaExpertDataFile.txt', dataExtract[counter] + "\r\n", () => {
+console.log('after append ' + dataExtract[counter])
+if (++counter < dataExtract.length)
+append(counter);
 });
 }
 //}

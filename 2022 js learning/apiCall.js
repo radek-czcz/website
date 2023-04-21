@@ -1,3 +1,5 @@
+// CALL TO FUTDB API
+
 const fetch = require('node-fetch');
 
 const request = new XMLHttpRequest();
